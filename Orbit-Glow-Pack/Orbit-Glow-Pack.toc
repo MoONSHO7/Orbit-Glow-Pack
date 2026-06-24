@@ -1,0 +1,14 @@
+## Interface: 120005, 120007
+## Title: Orbit: Glow Pack
+## Notes: Registers its glows with LibOrbitGlow.
+## Author: MoONSHO7
+## Version: @project-version@
+## Group: Orbit
+## Category: Orbit UI
+
+## X-Part-Of: Orbit
+## X-License: All Rights Reserved
+## X-Category: Interface Enhancements
+## X-Curse-Project-ID: 1586459
+
+Register.lua

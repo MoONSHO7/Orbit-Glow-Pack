@@ -1,0 +1,14 @@
+package-as: Orbit-Glow-Pack
+
+move-folders:
+  Orbit-Glow-Pack/Orbit-Glow-Pack: Orbit-Glow-Pack
+
+ignore:
+  - .github
+  - .gitignore
+  - .env
+  - .pkgmeta
+  - .scripts
+  - "**/README.md"
+
+enable-nolib-creation: no
