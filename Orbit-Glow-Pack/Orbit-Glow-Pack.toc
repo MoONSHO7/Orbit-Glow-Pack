@@ -1,5 +1,6 @@
 ## Interface: 120005, 120007
 ## Title: Orbit: Glow Pack
+## IconTexture: Interface\AddOns\Orbit-Glow-Pack\Orbit.png
 ## Notes: Registers its glows with LibOrbitGlow.
 ## Author: MoONSHO7
 ## Version: @project-version@
