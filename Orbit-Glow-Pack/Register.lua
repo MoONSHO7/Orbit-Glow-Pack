@@ -1,11 +1,10 @@
--- Registers the bundled 30-frame two-layer flipbook glows with LibOrbitGlow; loads after Orbit so the lib is up.
 local LCG = LibStub and LibStub("LibOrbitGlow-1.0", true)
 if not (LCG and LCG.RegisterGlow) then return end
 
 local BASE = "Interface\\AddOns\\Orbit-Glow-Pack\\Textures\\orbit-glow-"
-local BURST = BASE .. "burst-"      -- one shared start/end lifecycle, played by every glow (see .scripts/make-glow-burst.py)
+local BURST = BASE .. "burst-"
 
--- Per-type loop (shape bakes: square/soft/softer/round ring corners matching Orbit's icon mask styles) + one universal proc start/end for every glow — motes onto the border in, border-to-center swirl out; the burst is radial, so it exists only as -square regardless of requested shape.
+-- The burst is radial, so it exists only as -square regardless of requested shape.
 local function Resolver(name)
     return function(phase, shape, suffix)
         if phase == "loop" then return BASE .. name .. "-loop-" .. shape .. suffix .. ".tga" end
