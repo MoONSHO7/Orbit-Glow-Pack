@@ -1,10 +1,10 @@
 # Orbit Glow Pack
 
-A **media pack** of animated icon glows for [Orbit](../Orbit). It bundles the glow textures and registers them with **LibOrbitGlow-1.0** (embedded in Orbit) — it contains no engine code of its own. Think of it as the glow equivalent of a LibSharedMedia font/texture pack: Orbit-Glow-Pack *provides* media, LibOrbitGlow *plays* it.
+A **media pack** of animated icon glows for [Orbit](../Orbit) and any other **LibOrbitGlow-1.0** consumer. It contains no engine code: Orbit-Glow-Pack *provides* media, while a consumer-provided LibOrbitGlow *plays* it.
 
 ## How it works
 
-`Register.lua` runs after Orbit (`## Dependencies: Orbit`), grabs `LibStub("LibOrbitGlow-1.0")`, and calls `lib:RegisterGlow(name, def)` for each bundled glow:
+`Register.lua` registers immediately when a consumer has already provided LibOrbitGlow. When the pack loads first, it watches `ADDON_LOADED` and registers as soon as any later addon provides the library, then removes its watcher. It has no dependency on Orbit or any other specific consumer.
 
 ```lua
 LCG:RegisterGlow("pinring", {
@@ -16,7 +16,7 @@ LCG:RegisterGlow("pinring", {
 })
 ```
 
-Each glow ships only its own **loop**, but every glow shares **one universal proc start/end** — a minor particle flourish: on `start`, staggered motes stream in from outside the border, decelerate, and are absorbed onto the border edge; on `end`, motes peel off the border and spiral inward, the swirl tightening toward the centre as they fade. Everything dissolves to nothing, so the flourish suits ring, full-icon, and particle loops alike. The `Resolver(name)` closure in `Register.lua` maps `loop` to the per-type atlas and `start`/`end` to the shared `orbit-glow-burst-*` files, via LibOrbitGlow's `def.resolve(phase, shape, suffix)` hook. Any consumer plays the full lifecycle with:
+Each legacy glow ships only its own **loop**, but shares **one universal proc start/end** — a minor particle flourish: on `start`, staggered motes stream in from outside the border, decelerate, and are absorbed onto the border edge; on `end`, motes peel off the border and spiral inward, the swirl tightening toward the centre as they fade. Everything dissolves to nothing, so the flourish suits ring, full-icon, and particle loops alike. The `Resolver(name)` closure in `Register.lua` maps `loop` to the per-type atlas and `start`/`end` to the shared `orbit-glow-burst-*` files, via LibOrbitGlow's `def.resolve(phase, shape, suffix)` hook. Any consumer plays the full lifecycle with:
 
 ```lua
 LibStub("LibOrbitGlow-1.0").Proc:Start(frame, { glow = "pinring", color = {r,g,b,a} })  -- start -> loop
