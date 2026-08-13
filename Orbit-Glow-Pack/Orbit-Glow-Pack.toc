@@ -1,4 +1,4 @@
-## Interface: 120005, 120007, 120100
+## Interface: 120100
 ## Title: Orbit: Glow Pack
 ## IconTexture: Interface\AddOns\Orbit-Glow-Pack\Orbit.png
 ## Notes: Registers its glows with LibOrbitGlow.
