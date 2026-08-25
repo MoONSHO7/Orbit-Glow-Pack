@@ -1,11 +1,11 @@
 local BASE = "Interface\\AddOns\\Orbit-Glow-Pack\\Textures\\orbit-glow-"
-local BURST = BASE .. "burst-"
 
--- The burst is radial, so it exists only as -square regardless of requested shape.
 local function Resolver(name)
     return function(phase, shape, suffix)
-        if phase == "loop" then return BASE .. name .. "-loop-" .. shape .. suffix .. ".tga" end
-        return BURST .. phase .. "-square" .. suffix .. ".tga"
+        if phase ~= "loop" then
+            return nil
+        end
+        return BASE .. name .. "-loop-" .. shape .. suffix .. ".tga"
     end
 end
 
@@ -16,24 +16,61 @@ local ALL_SHAPES = { square = true, soft = true, softer = true, round = true }
 local SQUARE = { square = true }
 
 local GLOWS = {
-    "arcs4", "beacon", "chase", "comet2",
-    "cometdual", "cometrays", "cometwave", "dashdual", "dashfast", "dashpulse",
-    "dashwave", "dual", "embers", "halo", "marchwide", "megaswirl",
-    "neon", "orbittail", "pinarc", "pinchase", "pincomet", "pinneon",
-    "pinstrobe", "pinswirl", "pinwave", "polyexpand", "pulse", "pulsewave",
-    "radar", "rays", "raysfine", "raywave", "reticle", "ripplewave",
-    "slowswirl", "sparkring", "spin", "spiral2", "strobe", "sweepfast",
-    "swirl", "thinpulse", "tracer", "vortex",
+    "arcs4",
+    "beacon",
+    "chase",
+    "comet2",
+    "cometdual",
+    "cometrays",
+    "comettail",
+    "cometwave",
+    "dashwave",
+    "dual",
+    "embers",
+    "halo",
+    "halobreathe",
+    "neon",
+    "orbittail",
+    "pinarc",
+    "pinchase",
+    "pincomet",
+    "pinneon",
+    "pinstrobe",
+    "pinswirl",
+    "pinwave",
+    "polyexpand",
+    "pulse",
+    "pulsewave",
+    "radar",
+    "raywave",
+    "reticle",
+    "rimchase",
+    "ripplepair",
+    "ripplewave",
+    "slowswirl",
+    "spin",
+    "spiral2",
+    "strobe",
+    "sweepfast",
+    "swirl",
+    "thinpulse",
+    "tracer",
+    "twincomet",
 }
 
 local function Register()
     local LCG = LibStub and LibStub("LibOrbitGlow-1.0", true)
-    if not (LCG and LCG.RegisterGlow) then return false end
+    if not (LCG and LCG.RegisterGlow) then
+        return false
+    end
     for _, name in ipairs(GLOWS) do
         LCG:RegisterGlow(name, {
             layered = true,
+            loopOnly = true,
             resolve = Resolver(name),
-            rows = 6, cols = 5, frames = 30,
+            rows = 6,
+            cols = 5,
+            frames = 30,
             shapes = SQUARE_ONLY[name] and SQUARE or ALL_SHAPES,
             source = "Orbit-Glow-Pack",
         })
